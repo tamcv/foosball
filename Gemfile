@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.3.4'
 
+gem 'bootstrap', '~> 4.0.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.12'
 
@@ -8,7 +10,7 @@ gem 'rails', '4.0.12'
 gem 'pg', '~> 0.11'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
