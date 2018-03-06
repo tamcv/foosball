@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.4'
 
 gem 'bootstrap', '~> 4.0.0'
+gem 'sprockets', '2.11.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.12'
@@ -35,6 +36,9 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'factory_bot'
+end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
