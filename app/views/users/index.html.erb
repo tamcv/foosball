@@ -1,0 +1,27 @@
+<h1>USERS</h1>
+
+<%= link_to "Create User", new_user_path, class: "btn btn-success" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td>
+        <%= link_to "Show", user_path(user), class: "btn btn-info" %>
+        <%= link_to "Edit", edit_user_path(user), class: "btn btn-success" %>
+        <%= link_to "Destroy", user_path(user), method: :delete, class: "btn btn-warning" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
