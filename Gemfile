@@ -37,6 +37,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'byebug'
   gem 'factory_bot'
 end
 
