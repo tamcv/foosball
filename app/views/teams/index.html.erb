@@ -1,0 +1,25 @@
+<h1>USERS</h1>
+
+<%= link_to "Create Team", new_team_path, class: "btn btn-success" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teams.each do |team| %>
+    <tr>
+      <td><%= team.id %></td>
+      <td><%= team.name %></td>
+      <td>
+        <%= link_to "Show", team_path(team), class: "btn btn-info" %>
+        <%= link_to "Edit", edit_team_path(team), class: "btn btn-success" %>
+        <%= link_to "Destroy", team_path(team), method: :delete, class: "btn btn-warning" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
