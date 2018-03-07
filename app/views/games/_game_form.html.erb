@@ -1,0 +1,7 @@
+<%= form_for(@game) do |f| %>
+
+  <%= f.label :number %>
+  <%= f.text_field :number, class: 'form-control' %>
+
+  <%= f.submit "Create", class: "btn btn-primary" %>
+<% end %>
