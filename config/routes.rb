@@ -1,4 +1,6 @@
 Foosball::Application.routes.draw do
+  resources :matches
+
   resources :games
 
   resources :teams
