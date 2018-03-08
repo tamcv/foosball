@@ -1,24 +1,36 @@
 <h1>MATCHES</h1>
 
 <div class="input-group">
-<%= form_for(Match.new) do |f| %>
+<%= form_for(match = Match.new) do |f| %>
+    <%= f.fields_for 'match_teams[]', match.match_teams.build do |match_team| %>
+      <%= f.label "team 1" %>
+      <%= match_team.collection_select :team_id, Team.all, :id, :name, {}, {:class=>'form-control'} %>
+    <% end %>
+    <%= f.fields_for 'match_teams[]', match.match_teams.build do |match_team| %>
+      <%= f.label "team 2" %>
+      <%= match_team.collection_select :team_id, Team.all, :id, :name, {}, {:class=>'form-control'} %>
+    <% end %>
   <%= f.submit "Create Match", class: "btn btn-primary" %>
 <% end %>
 </div>
 
 <div class="group">
   <% @matches.each do |match| %>
-  <h5 class="display-6">Match: <%= match.id %></h1>
+  <h4 class="display-6">Match: <%= match.id %></h1>
+  <% team_ids = match.match_teams.pluck(:team_id) %>
+  <% teams = Team.find_all_by_id(team_ids) %>
+  <h5 class="display-6">Team: <%= teams.first.name %> vs <%= teams.last.name %></h1>
+
   <div class="container">
     <div class="row">
       <div class="col-4">
-        1 of 3
+        <%= link_to "Create Game 1", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
       </div>
       <div class="col-4">
-        2 of 3
+        <%= link_to "Create Game 2", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
       </div>
       <div class="col-4">
-        3 of 3
+        <%= link_to "Create Game 3", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
       </div>
     </div>
   </div>

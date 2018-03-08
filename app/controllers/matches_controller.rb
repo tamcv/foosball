@@ -4,12 +4,13 @@ class MatchesController < ApplicationController
   end
 
   def create
-    @match = Match.new(match_params)
-
-    if @match.save
+    ActiveRecord::Base.transaction do
+      begin
+        @match = Match.create(match_params)
+        @match.match_teams.create(match_team_params)
+      rescue
+      end
       redirect_to matches_path
-    else
-      render 'new'
     end
   end
 
@@ -33,5 +34,9 @@ class MatchesController < ApplicationController
   private
 
   def match_params
+  end
+
+  def match_team_params
+    params.require(:match).permit(match_teams: [:team_id])[:match_teams]
   end
 end
