@@ -2,15 +2,20 @@ class GamesController < ApplicationController
 
   def new
     @game = Game.new
+    @game.game_teams.build
   end
 
   def create
-    @game = Game.new(game_params)
+    ActiveRecord::Base.transaction do
+      begin
+        @game = Game.new(game_params)
+        @game.save
+        @game.game_teams.create(game_team_params)
 
-    if @game.save
-      redirect_to games_path
-    else
-      render 'new'
+        redirect_to games_path
+      rescue
+        render 'new'
+      end
     end
   end
 
@@ -20,6 +25,7 @@ class GamesController < ApplicationController
 
   def edit
     @game = Game.find(params[:id])
+    @game.game_teams.build
   end
 
   def update
@@ -45,5 +51,9 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:number)
+  end
+
+  def game_team_params
+    params.require(:game).permit(game_teams: [:team_id, :game_id, :score])[:game_teams]
   end
 end
