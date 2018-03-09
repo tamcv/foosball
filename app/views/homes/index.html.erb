@@ -1,0 +1,20 @@
+<h1>LEADERBOARD</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>RANK</th>
+      <th>TEAM</th>
+      <th>WINNING COUNT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @result.each_with_index do |(team_id, count), index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= Team.find(team_id).name %></td>
+      <td><%= count %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,4 +1,6 @@
 Foosball::Application.routes.draw do
+  get "leaderboard" => "homes#index"
+
   resources :matches
 
   resources :games
