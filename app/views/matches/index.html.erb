@@ -23,15 +23,19 @@
 
   <div class="container">
     <div class="row">
+      <% [1,2,3].each do |number| %>
       <div class="col-4">
-        <%= link_to "Create Game 1", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
+        <% game = match.games.find_by_number(number) %>
+        <% if game.nil? %>
+          <%= link_to "Create Game #{number}", new_game_path(game_number: number, match_id: match.id), class: "btn btn-success" %>
+        <% else %>
+          <p> Game <%= number %> </p>
+          <% game.game_teams.each do |game_team| %>
+            <p> Team <%= Team.find(game_team.team_id).name %> has score <%= game_team.score %>  </p>
+          <% end %>
+        <% end %>
       </div>
-      <div class="col-4">
-        <%= link_to "Create Game 2", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
-      </div>
-      <div class="col-4">
-        <%= link_to "Create Game 3", new_game_path(number: 1, match_id: match.id), class: "btn btn-success" %>
-      </div>
+      <% end %>
     </div>
   </div>
   <% end %>

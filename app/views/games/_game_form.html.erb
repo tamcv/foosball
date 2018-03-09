@@ -1,12 +1,15 @@
 <%= form_for(@game) do |f| %>
 
   <%= f.label :game_number %>
-  <%= f.select :number, options_for_select([1, 2, 3]), {}, {class: 'form-control'} %>
-
+  <%= f.select :number, options_for_select([params[:game_number]]), {}, {class: 'form-control'} %>
+  <%= f.label :match_id %>
+  <%= f.select :match_id, options_for_select([params[:match_id]]), {}, {class: 'form-control'} %>
+  <% team_ids = Match.find(params[:match_id]).team_ids %>
+  <% teams = Team.where(id: team_ids) %>
   <%= f.fields_for 'game_teams[]', @game.game_teams.build do |game_team| %>
 
     <%= f.label "team 1" %>
-    <%= game_team.collection_select :team_id, Team.all, :id, :name, {}, {:class=>'form-control'} %>
+    <%= game_team.collection_select :team_id, [teams.first], :id, :name, {}, {:class=>'form-control'} %>
 
     <%= f.label :score %>
     <%= game_team.number_field :score, class: 'form-control'%>
@@ -15,7 +18,7 @@
   <%= f.fields_for 'game_teams[]', @game.game_teams.build do |game_team| %>
 
     <%= f.label "team 2" %>
-    <%= game_team.collection_select :team_id, Team.all, :id, :name, {}, {:class=>'form-control'} %>
+    <%= game_team.collection_select :team_id, [teams.last], :id, :name, {}, {:class=>'form-control'} %>
 
     <%= f.label :score %>
     <%= game_team.number_field :score, class: 'form-control'%>

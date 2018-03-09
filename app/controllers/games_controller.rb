@@ -12,10 +12,9 @@ class GamesController < ApplicationController
         @game.save
         @game.game_teams.create(game_team_params)
 
-        redirect_to games_path
       rescue
-        render 'new'
       end
+      redirect_to matches_path
     end
   end
 
@@ -50,7 +49,7 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(:number)
+    params.require(:game).permit(:number, :match_id)
   end
 
   def game_team_params
